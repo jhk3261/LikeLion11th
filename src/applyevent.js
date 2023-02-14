@@ -1,3 +1,9 @@
+const name = document.getElementById('name');
+const major = document.getElementById('major');
+const grade = document.getElementById('grade');
+const phone = document.getElementById('phone');
+const email = document.getElementById('email');
+const personal = document.getElementById('personal');
 // 페이지슬라이더부분
 // 슬라이크 전체 크기(width 구하기)
 const slide = document.querySelector(".questionbox");
@@ -17,19 +23,24 @@ let currSlide = 1;
 
 // 버튼 엘리먼트에 클릭 이벤트 추가하기
 nextBtn.addEventListener("click", () => {
-    // 이후 버튼 누를 경우 현재 슬라이드를 변경
-    currSlide++;
-    // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
-    if (currSlide <= maxSlide) {
-        // 슬라이드를 이동시키기 위한 offset 계산
-        const offset = slideWidth * (currSlide - 1);
-        // 각 슬라이드 아이템의 left에 offset 적용
-        slideItems.forEach((i) => {
-            i.setAttribute("style", `left: ${-offset}px`);
-        });
+    if( name.value == "" || major.value == "" || grade.value =="" ||
+    phone.value=="" || email.value == "" ) {
+    } else if (personal.checked == false) {
     } else {
-        currSlide--;
-    }
+        // 이후 버튼 누를 경우 현재 슬라이드를 변경
+        currSlide++;
+        // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
+        if (currSlide <= maxSlide) {
+            // 슬라이드를 이동시키기 위한 offset 계산
+            const offset = slideWidth * (currSlide - 1);
+            // 각 슬라이드 아이템의 left에 offset 적용
+            slideItems.forEach((i) => {
+                i.setAttribute("style", `left: ${-offset}px`);
+            });
+        } else {
+            currSlide--;
+        }
+    } 
 });
 prevBtn.addEventListener("click", () => {
     // 이전 버튼 누를 경우 현재 슬라이드를 변경
@@ -62,11 +73,20 @@ function toggleNextBtn() {
     const box4 = document.getElementsByClassName('box4');
 
     if (currSlide == 1) {
-        prev[0].style.display = 'flex';
-        save[0].style.display = 'none';
-        two[0].style.opacity = '1';
-        box2[0].style.opacity = '1';
+        if( name.value == "" || major.value == "" || grade.value =="" ||
+        phone.value=="" || email.value == "" ) {
+            alert("필수 입력란이 비어있습니다. 확인해주세요.")
+            console.log(currSlide);
+        } else if (personal.checked == false) {
+            alert("개인정보수집에 동의해주세요.")
+        } else {
+            prev[0].style.display = 'flex';
+            save[0].style.display = 'none';
+            two[0].style.opacity = '1';
+            box2[0].style.opacity = '1';
+        }
     } else if (currSlide == 2) {
+        console.log(currSlide);
         save[0].style.display = 'none';
         prev[0].style.display = 'flex';
         two[0].style.opacity = '1';
@@ -74,6 +94,7 @@ function toggleNextBtn() {
         box2[0].style.opacity = '1';
         box3[0].style.opacity = '1';
     } else if (currSlide == 3) {
+        console.log(currSlide);
         prev[0].style.display = 'flex';
         save[0].style.display = 'flex';
         sub[0].style.display = 'flex';
@@ -186,10 +207,3 @@ $('#question4').keyup(function(e) {
         alert('글자수는 500자까지 입력가능합니다.');
     }
 })
-
-//임시저장
-function toggleSaveBtn() {
-
-}
-
-//자동저장
